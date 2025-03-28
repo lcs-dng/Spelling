@@ -26,35 +26,61 @@ struct QuizView: View {
     // MARK: Computed properties
     var body: some View {
         
-        VStack {
-            Image(currentItem.imageName)
-                .resizable()
-                .scaledToFit()
+        HStack {
             
-            HStack {
-                TextField("Enter the name of the item", text: $userGuess)
+            // Left side
+            VStack {
+                Image(currentItem.imageName)
+                    .resizable()
+                    .scaledToFit()
                 
-                Text(currentOutcome.rawValue)
-            }
-            
-            HStack {
-                
-                Button {
-                    checkGuess()
-                } label: {
-                    Text("Submit")
+                HStack {
+                    TextField("Enter the name of the item", text: $userGuess)
+                    
+                    Text(currentOutcome.rawValue)
                 }
                 
-                Button {
-                    newWord()
-                } label: {
-                    Text("New word")
+                HStack {
+                    
+                    Button {
+                        checkGuess()
+                    } label: {
+                        Text("Submit")
+                    }
+                    
+                    Button {
+                        newWord()
+                    } label: {
+                        Text("New word")
+                    }
+                    
                 }
-
-            }
                 
+            }
+            .padding()
+            
+            // Right side
+            List(history) { currentResult in
+                
+                HStack {
+                    
+                    Image(currentResult.item.imageName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50)
+                    
+                    Text(currentResult.guessProvided)
+                    
+                    Spacer()
+                    
+                    Text(currentResult.outcome.rawValue)
+                    
+                }
+                    
+            }
+            
         }
-        
+            
     }
     
     // MARK: Function
