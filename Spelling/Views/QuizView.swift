@@ -17,6 +17,9 @@ struct QuizView: View {
     // What the user has guessed
     @State var userGuess = ""
     
+    // What was the outcome of a user making a guess?
+    @State var currentOutcome: Outcome = .undetermined
+    
     // MARK: Computed properties
     var body: some View {
         
@@ -25,7 +28,11 @@ struct QuizView: View {
                 .resizable()
                 .scaledToFit()
             
-            TextField("Enter the name of the item", text: $userGuess)
+            HStack {
+                TextField("Enter the name of the item", text: $userGuess)
+                
+                Text(currentOutcome.rawValue)
+            }
             
             Button {
                 checkGuess()
@@ -40,8 +47,10 @@ struct QuizView: View {
     // MARK: Function
     func checkGuess() {
         if userGuess == currentItem.word {
+            currentOutcome = .correct
             print("Correct")
         } else {
+            currentOutcome = .incorrect
             print("Incorrect")
         }
     }
