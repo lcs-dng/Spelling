@@ -60,7 +60,11 @@ struct QuizView: View {
             .padding()
             
             // Right side
-            List(history) { currentResult in
+            List(
+            
+                filtering(originalList: history, on: .incorrect)
+            
+            ) { currentResult in
                 
                 HStack {
                     
